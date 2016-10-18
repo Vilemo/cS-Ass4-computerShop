@@ -1,0 +1,152 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace cS_Assignment4_computerShop
+{
+    public partial class Form1 : Form
+    {
+        ClassMacBook c1M1, c2M2;
+        ClassDell c3D1, c4D2;
+        ClassHP c5HP1, c6HP2;
+        ClassAsus c7A1, c8A2;
+        ClassIBM c9IBM1, c10IBM2;
+        int objNo = 0; //counter for how many objects
+        public Form1()
+        {
+            InitializeComponent();
+        }
+        ClassComputers[] objName = new ClassComputers[10];
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            lblCompType.Text = "MacBook";
+            btnUpdate.Enabled = false;
+
+        }
+        public void display(int objNo)
+        {
+            lbxNo.Items.Add(objNo);
+            lbxType.Items.Add(lblCompType.Text);
+            lbxBrand.Items.Add(tbxBrand.Text);
+            lbxPrice.Items.Add(tbxPrice.Text);
+            lbxMB.Items.Add(tbxMB.Text);
+            lbxCPU.Items.Add(tbxCPU.Text);
+            lbxSC.Items.Add(tbxSC.Text);
+            lbxGC.Items.Add(tbxGC.Text);
+            lbxNC.Items.Add(tbxNC.Text);
+            lbxHDD.Items.Add(tbxHDD.Text);
+            lbxM.Items.Add(tbxMonitor.Text);
+        }
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            showUpdate();
+        }
+        public void hideUpdate(){
+            hideAdd();
+        }
+        public void hideAdd()
+        {
+            tbxBrand.Enabled = false;
+            tbxPrice.Enabled = false;
+            tbxMB.Enabled = false;
+            tbxCPU.Enabled = false;
+            tbxSC.Enabled = false;
+            tbxGC.Enabled = false;
+            tbxNC.Enabled = false;
+            tbxHDD.Enabled = false;
+            tbxMonitor.Enabled = false;
+            btnAdd.Enabled = false;
+            lblCompType.Text = "";
+            btnUpdate.Enabled = true;
+        }
+        public void showUpdate(){
+
+        }
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string cBrand = tbxBrand.Text;
+                double cPrice = Convert.ToDouble(tbxPrice.Text);
+                string cMB = tbxMB.Text;
+                string cCPU = tbxCPU.Text;
+                string cSC = tbxSC.Text;
+                string cGC = tbxGC.Text;
+                string cNC = tbxNC.Text;
+                string cHDD = tbxHDD.Text;
+                string cM = tbxMonitor.Text;
+                if (cBrand == "" || cPrice == 0 || cMB == "" || cCPU == "" || cSC == "" || cGC == "" || cNC == "" || cHDD == "" || cM == "")
+                    MessageBox.Show("All fields are required!");
+                else
+                {
+                    objNo++;
+                    if (objNo == 1){
+                        c1M1 = new ClassMacBook(cMB, cCPU, cSC, cGC, cNC, cHDD, cM, cBrand, cPrice);
+                        objName[0] = c1M1;
+                        lblCompType.Text = "MacBook";
+                    }
+                    else if (objNo == 2){
+                        c2M2 = new ClassMacBook(cMB, cCPU, cSC, cGC, cNC, cHDD, cM, cBrand, cPrice);
+                        objName[1] = c2M2;
+                        lblCompType.Text = "MacBook";
+                    }
+                    else if (objNo == 3){
+                        c3D1 = new ClassDell(cMB, cCPU, cSC, cGC, cNC, cHDD, cM, cBrand, cPrice);
+                        objName[2] = c3D1;
+                        lblCompType.Text="Dell";
+                    }
+                    else if (objNo == 4){
+                        c4D2 = new ClassDell(cMB, cCPU, cSC, cGC, cNC, cHDD, cM, cBrand, cPrice);
+                        objName[3] = c4D2;
+                        lblCompType.Text = "HP";
+                    }
+                    else if (objNo == 5){
+                        c5HP1 = new ClassHP(cMB, cCPU, cSC, cGC, cNC, cHDD, cM, cBrand, cPrice);
+                        objName[4] = c5HP1;
+                        lblCompType.Text = "HP";
+                    }
+                    else if (objNo == 6){
+                        c6HP2 = new ClassHP(cMB, cCPU, cSC, cGC, cNC, cHDD, cM, cBrand, cPrice);
+                        objName[5] = c6HP2;
+                        lblCompType.Text = "Asus";
+                    }
+                    else if (objNo == 7){
+                        c7A1 = new ClassAsus(cMB, cCPU, cSC, cGC, cNC, cHDD, cM, cBrand, cPrice);
+                        objName[6] = c7A1;
+                        lblCompType.Text = "Asus";
+                    }
+                    else if (objNo == 8){
+                        c8A2 = new ClassAsus(cMB, cCPU, cSC, cGC, cNC, cHDD, cM, cBrand, cPrice);
+                        objName[7] = c8A2;
+                        lblCompType.Text = "IBM";
+                    }
+                    else if (objNo == 9){
+                        c9IBM1 = new ClassIBM(cMB, cCPU, cSC, cGC, cNC, cHDD, cM, cBrand, cPrice);
+                        objName[8] = c9IBM1;
+                        lblCompType.Text = "IBM";
+                    }
+                    else {
+                        c10IBM2 = new ClassIBM(cMB, cCPU, cSC, cGC, cNC, cHDD, cM, cBrand, cPrice);
+                        objName[9] = c10IBM2;
+                        lblCompType.Text = "IBM";
+                        hideAdd();
+                    }
+                    display(objNo);
+                }//end else
+                textBox12.Text = objNo.ToString();
+            }//end try
+            catch (FormatException fEx)
+            {
+                MessageBox.Show("Wrong value!" + Environment.NewLine + fEx.Message);
+            }
+        }
+
+    }
+}
